@@ -22,7 +22,7 @@ class MtPathExpander implements PathExpander {
     @Override
     public Iterable expand(Path path, BranchState state) {
         Node current = path.endNode();
-        LOGGER.log(Level.SEVERE, "MtPathExpander: expand. " + this.direction.toString() + ". Node ID: " + current.getId());
+        LOGGER.log(Level.SEVERE, "MtPathExpander: expand. " + this.direction.toString() + ". Node: " + current.getProperty("id"));
         return current.getRelationships(this.direction);
     }
 
