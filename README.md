@@ -61,47 +61,47 @@ RETURN count(*) AS number_of_paths_found;
 
 # Sample log output (from neo4j.log)
 ```
-2017-11-09 14:11:38.701+0000 ERROR MtPathExpander: init. OUTGOING
-2017-11-09 14:11:38.720+0000 ERROR MtPathExpander: init. INCOMING
-2017-11-09 14:11:38.740+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 1
-2017-11-09 14:11:38.747+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 0
-2017-11-09 14:11:38.748+0000 ERROR MtCostEvaluator: Relationship ID: 20. OUTGOING
-2017-11-09 14:11:38.748+0000 ERROR MtCostEvaluator: Relationship ID: 20. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 18. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 18. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 4. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 4. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 2. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 2. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 4
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 16. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 16. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 12. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 12. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 6
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 2
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 7. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 7. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 2
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 6. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 6. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 7
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 3
+2017-11-09 15:52:31.566+0000 ERROR MtPathExpander: init. OUTGOING
+2017-11-09 15:52:31.586+0000 ERROR MtPathExpander: init. INCOMING
+2017-11-09 15:52:31.609+0000 ERROR MtPathExpander: expand. INCOMING. Node: b
+2017-11-09 15:52:31.618+0000 ERROR MtPathExpander: expand. OUTGOING. Node: a
+2017-11-09 15:52:31.623+0000 ERROR MtCostEvaluator: Relationship ID: 20. OUTGOING. From: e To: b
+2017-11-09 15:52:31.624+0000 ERROR MtCostEvaluator: Relationship ID: 20. OUTGOING. From: e To: b
+2017-11-09 15:52:31.624+0000 ERROR MtCostEvaluator: Relationship ID: 18. OUTGOING. From: h To: b
+2017-11-09 15:52:31.624+0000 ERROR MtCostEvaluator: Relationship ID: 18. OUTGOING. From: h To: b
+2017-11-09 15:52:31.625+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING. From: c To: b
+2017-11-09 15:52:31.625+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING. From: c To: b
+2017-11-09 15:52:31.625+0000 ERROR MtCostEvaluator: Relationship ID: 4. OUTGOING. From: a To: g
+2017-11-09 15:52:31.625+0000 ERROR MtCostEvaluator: Relationship ID: 4. OUTGOING. From: a To: g
+2017-11-09 15:52:31.626+0000 ERROR MtCostEvaluator: Relationship ID: 2. OUTGOING. From: a To: d
+2017-11-09 15:52:31.626+0000 ERROR MtCostEvaluator: Relationship ID: 2. OUTGOING. From: a To: d
+2017-11-09 15:52:31.626+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING. From: a To: c
+2017-11-09 15:52:31.626+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING. From: a To: c
+2017-11-09 15:52:31.626+0000 ERROR MtPathExpander: expand. INCOMING. Node: e
+2017-11-09 15:52:31.627+0000 ERROR MtCostEvaluator: Relationship ID: 16. OUTGOING. From: f To: e
+2017-11-09 15:52:31.627+0000 ERROR MtCostEvaluator: Relationship ID: 16. OUTGOING. From: f To: e
+2017-11-09 15:52:31.627+0000 ERROR MtCostEvaluator: Relationship ID: 12. OUTGOING. From: d To: e
+2017-11-09 15:52:31.628+0000 ERROR MtCostEvaluator: Relationship ID: 12. OUTGOING. From: d To: e
+2017-11-09 15:52:31.628+0000 ERROR MtPathExpander: expand. OUTGOING. Node: g
+2017-11-09 15:52:31.628+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING. From: g To: h
+2017-11-09 15:52:31.628+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING. From: g To: h
+2017-11-09 15:52:31.631+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING. From: a To: c
+2017-11-09 15:52:31.631+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING. From: c To: b
+2017-11-09 15:52:31.631+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING. From: a To: c
+2017-11-09 15:52:31.631+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING. From: c To: b
+2017-11-09 15:52:31.631+0000 ERROR MtPathExpander: expand. INCOMING. Node: c
+2017-11-09 15:52:31.631+0000 ERROR MtCostEvaluator: Relationship ID: 7. OUTGOING. From: f To: c
+2017-11-09 15:52:31.632+0000 ERROR MtCostEvaluator: Relationship ID: 7. OUTGOING. From: f To: c
+2017-11-09 15:52:31.632+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING. From: a To: c
+2017-11-09 15:52:31.632+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING. From: a To: c
+2017-11-09 15:52:31.632+0000 ERROR MtPathExpander: expand. OUTGOING. Node: c
+2017-11-09 15:52:31.632+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING. From: c To: b
+2017-11-09 15:52:31.633+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING. From: c To: b
+2017-11-09 15:52:31.633+0000 ERROR MtCostEvaluator: Relationship ID: 6. OUTGOING. From: c To: f
+2017-11-09 15:52:31.633+0000 ERROR MtCostEvaluator: Relationship ID: 6. OUTGOING. From: c To: f
+2017-11-09 15:52:31.633+0000 ERROR MtPathExpander: expand. INCOMING. Node: h
+2017-11-09 15:52:31.634+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING. From: g To: h
+2017-11-09 15:52:31.634+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING. From: g To: h
+2017-11-09 15:52:31.634+0000 ERROR MtPathExpander: expand. OUTGOING. Node: d
 [snip]
 ```
