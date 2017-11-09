@@ -15,7 +15,8 @@ This is a simple example of a Neo4j procedure demonstrating how the `DijkstraBid
   - The cost evaluator is run twice for every relationship while I expect it to be run only once per relationship.
   - The direction passed into the cost evaluator is always OUTGOING. I expect it to be INCOMING when the path expander is in reverse mode.
 
-# Create demo graph
+# Demo graph
+![Demo Graph](/graph.png)
 ```
 CREATE
   (a:Point {id: "a"}),
