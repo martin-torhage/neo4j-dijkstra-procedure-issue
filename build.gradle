@@ -1,0 +1,47 @@
+plugins {
+    id 'groovy'
+    id 'idea'
+}
+
+idea {
+    project {
+        ext.jdkName = '1.8'
+        ext.languageLevel = '1.8'
+    }
+}
+
+sourceCompatibility=JavaVersion.VERSION_1_8
+targetCompatibility=JavaVersion.VERSION_1_8
+
+jar {
+    baseName "mt-dijkstra-issue"
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://raw.github.com/neo4j-contrib/m2/master/releases" }
+}
+
+ext {
+    neo4jVersion = "3.2.3"
+}
+
+dependencies {
+    compile group: 'org.neo4j', name: 'neo4j-kernel', version: neo4jVersion
+    compile group: 'org.neo4j', name: 'neo4j-lucene-index', version: neo4jVersion
+    compile group: 'org.neo4j', name: 'neo4j-graph-algo', version: neo4jVersion
+
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.6'
+    testCompile "org.hamcrest:hamcrest-all:1.3"
+    testCompile group: 'org.neo4j.contrib', name: 'neo4j-spock-extension', version: '0.8.0'
+}
+
+version = "1.0.0"
+group = "mt.neo4j"
+
+test {
+    systemProperties 'user.language': 'en', 'user.country': 'US'
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
