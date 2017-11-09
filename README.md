@@ -15,17 +15,18 @@ This is a simple example of a Neo4j procedure demonstrating how the `DijkstraBid
   - The cost evaluator is run twice for every relationship while I expect it to be run only once per relationship.
   - The direction passed into the cost evaluator is always OUTGOING. I expect it to be INCOMING when the path expander is in reverse mode.
 
-# Create demo graph
+# Demo graph
+![Demo Graph](/graph.png)
 ```
 CREATE
-  (a:Point {id: "a"}),
-  (b:Point {id: "b"}),
-  (c:Point {id: "c"}),
-  (d:Point {id: "d"}),
-  (e:Point {id: "e"}),
-  (f:Point {id: "f"}),
-  (g:Point {id: "g"}),
-  (h:Point {id: "h"})
+  (a:Point {id: "A"}),
+  (b:Point {id: "B"}),
+  (c:Point {id: "C"}),
+  (d:Point {id: "D"}),
+  (e:Point {id: "E"}),
+  (f:Point {id: "F"}),
+  (g:Point {id: "G"}),
+  (h:Point {id: "H"})
 CREATE
   (a) -  [:LINE] -> (c),
   (a) <- [:LINE] - (c),
@@ -49,59 +50,130 @@ CREATE
   (h) <- [:LINE] - (b),
   (e) -  [:LINE] -> (b),
   (e) <- [:LINE] - (b)
-RETURN "Demo graph created";
+RETURN "Graph created";
+
+MATCH (start:Point) - [l:LINE] -> (end:Point)
+SET l.id = start.id + " => " + end.id
+RETURN count(*) + " relationship IDs set";
 ```
 
 # Demo query
 ```
-MATCH (start:Point {id: "a"}), (end:Point {id: "b"})
+MATCH (start:Point {id: "A"}), (end:Point {id: "B"})
 CALL mt.findPaths(start, end) YIELD path
 RETURN count(*) AS number_of_paths_found;
 ```
 
 # Sample log output (from neo4j.log)
 ```
-2017-11-09 14:11:38.701+0000 ERROR MtPathExpander: init. OUTGOING
-2017-11-09 14:11:38.720+0000 ERROR MtPathExpander: init. INCOMING
-2017-11-09 14:11:38.740+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 1
-2017-11-09 14:11:38.747+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 0
-2017-11-09 14:11:38.748+0000 ERROR MtCostEvaluator: Relationship ID: 20. OUTGOING
-2017-11-09 14:11:38.748+0000 ERROR MtCostEvaluator: Relationship ID: 20. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 18. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 18. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 4. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 4. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 2. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 2. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 4
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 16. OUTGOING
-2017-11-09 14:11:38.749+0000 ERROR MtCostEvaluator: Relationship ID: 16. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 12. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 12. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 6
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.750+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 2
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 7. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 7. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtCostEvaluator: Relationship ID: 0. OUTGOING
-2017-11-09 14:11:38.752+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 2
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 8. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 6. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 6. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtPathExpander: expand. INCOMING. Node ID: 7
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtCostEvaluator: Relationship ID: 14. OUTGOING
-2017-11-09 14:11:38.753+0000 ERROR MtPathExpander: expand. OUTGOING. Node ID: 3
-[snip]
+2017-11-09 16:37:20.468+0000 ERROR MtPathExpander: init. OUTGOING
+2017-11-09 16:37:20.491+0000 ERROR MtPathExpander: init. INCOMING
+2017-11-09 16:37:20.512+0000 ERROR MtPathExpander: expand. INCOMING. Node: B
+2017-11-09 16:37:20.522+0000 ERROR MtPathExpander: expand. OUTGOING. Node: A
+2017-11-09 16:37:20.525+0000 ERROR MtCostEvaluator: OUTGOING E => B
+2017-11-09 16:37:20.526+0000 ERROR MtCostEvaluator: OUTGOING E => B
+2017-11-09 16:37:20.526+0000 ERROR MtCostEvaluator: OUTGOING H => B
+2017-11-09 16:37:20.526+0000 ERROR MtCostEvaluator: OUTGOING H => B
+2017-11-09 16:37:20.526+0000 ERROR MtCostEvaluator: OUTGOING C => B
+2017-11-09 16:37:20.526+0000 ERROR MtCostEvaluator: OUTGOING C => B
+2017-11-09 16:37:20.527+0000 ERROR MtCostEvaluator: OUTGOING A => G
+2017-11-09 16:37:20.527+0000 ERROR MtCostEvaluator: OUTGOING A => G
+2017-11-09 16:37:20.527+0000 ERROR MtCostEvaluator: OUTGOING A => D
+2017-11-09 16:37:20.527+0000 ERROR MtCostEvaluator: OUTGOING A => D
+2017-11-09 16:37:20.527+0000 ERROR MtCostEvaluator: OUTGOING A => C
+2017-11-09 16:37:20.528+0000 ERROR MtCostEvaluator: OUTGOING A => C
+2017-11-09 16:37:20.528+0000 ERROR MtPathExpander: expand. INCOMING. Node: E
+2017-11-09 16:37:20.528+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.528+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.529+0000 ERROR MtCostEvaluator: OUTGOING D => E
+2017-11-09 16:37:20.529+0000 ERROR MtCostEvaluator: OUTGOING D => E
+2017-11-09 16:37:20.529+0000 ERROR MtPathExpander: expand. OUTGOING. Node: G
+2017-11-09 16:37:20.529+0000 ERROR MtCostEvaluator: OUTGOING G => H
+2017-11-09 16:37:20.529+0000 ERROR MtCostEvaluator: OUTGOING G => H
+2017-11-09 16:37:20.533+0000 ERROR MtCostEvaluator: OUTGOING A => C
+2017-11-09 16:37:20.533+0000 ERROR MtCostEvaluator: OUTGOING C => B
+2017-11-09 16:37:20.534+0000 ERROR MtCostEvaluator: OUTGOING A => C
+2017-11-09 16:37:20.534+0000 ERROR MtCostEvaluator: OUTGOING C => B
+2017-11-09 16:37:20.534+0000 ERROR MtPathExpander: expand. INCOMING. Node: C
+2017-11-09 16:37:20.534+0000 ERROR MtCostEvaluator: OUTGOING F => C
+2017-11-09 16:37:20.535+0000 ERROR MtCostEvaluator: OUTGOING F => C
+2017-11-09 16:37:20.535+0000 ERROR MtCostEvaluator: OUTGOING A => C
+2017-11-09 16:37:20.535+0000 ERROR MtCostEvaluator: OUTGOING A => C
+2017-11-09 16:37:20.535+0000 ERROR MtPathExpander: expand. OUTGOING. Node: C
+2017-11-09 16:37:20.535+0000 ERROR MtCostEvaluator: OUTGOING C => B
+2017-11-09 16:37:20.535+0000 ERROR MtCostEvaluator: OUTGOING C => B
+2017-11-09 16:37:20.536+0000 ERROR MtCostEvaluator: OUTGOING C => F
+2017-11-09 16:37:20.536+0000 ERROR MtCostEvaluator: OUTGOING C => F
+2017-11-09 16:37:20.536+0000 ERROR MtPathExpander: expand. INCOMING. Node: H
+2017-11-09 16:37:20.536+0000 ERROR MtCostEvaluator: OUTGOING G => H
+2017-11-09 16:37:20.537+0000 ERROR MtCostEvaluator: OUTGOING G => H
+2017-11-09 16:37:20.537+0000 ERROR MtPathExpander: expand. OUTGOING. Node: D
+2017-11-09 16:37:20.537+0000 ERROR MtCostEvaluator: OUTGOING D => E
+2017-11-09 16:37:20.537+0000 ERROR MtCostEvaluator: OUTGOING D => E
+2017-11-09 16:37:20.538+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.538+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.538+0000 ERROR MtPathExpander: expand. INCOMING. Node: A
+2017-11-09 16:37:20.538+0000 ERROR MtCostEvaluator: OUTGOING G => A
+2017-11-09 16:37:20.538+0000 ERROR MtCostEvaluator: OUTGOING G => A
+2017-11-09 16:37:20.539+0000 ERROR MtCostEvaluator: OUTGOING D => A
+2017-11-09 16:37:20.539+0000 ERROR MtCostEvaluator: OUTGOING D => A
+2017-11-09 16:37:20.539+0000 ERROR MtCostEvaluator: OUTGOING A => G
+2017-11-09 16:37:20.539+0000 ERROR MtCostEvaluator: OUTGOING G => H
+2017-11-09 16:37:20.540+0000 ERROR MtCostEvaluator: OUTGOING H => B
+2017-11-09 16:37:20.540+0000 ERROR MtPathExpander: expand. OUTGOING. Node: F
+2017-11-09 16:37:20.540+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.540+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.541+0000 ERROR MtCostEvaluator: OUTGOING F => C
+2017-11-09 16:37:20.541+0000 ERROR MtCostEvaluator: OUTGOING F => C
+2017-11-09 16:37:20.541+0000 ERROR MtPathExpander: expand. INCOMING. Node: G
+2017-11-09 16:37:20.541+0000 ERROR MtCostEvaluator: OUTGOING A => G
+2017-11-09 16:37:20.542+0000 ERROR MtCostEvaluator: OUTGOING A => G
+2017-11-09 16:37:20.542+0000 ERROR MtCostEvaluator: OUTGOING A => D
+2017-11-09 16:37:20.542+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.542+0000 ERROR MtCostEvaluator: OUTGOING F => C
+2017-11-09 16:37:20.542+0000 ERROR MtCostEvaluator: OUTGOING C => B
+2017-11-09 16:37:20.543+0000 ERROR MtPathExpander: expand. OUTGOING. Node: F
+2017-11-09 16:37:20.543+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.543+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.543+0000 ERROR MtCostEvaluator: OUTGOING F => D
+2017-11-09 16:37:20.543+0000 ERROR MtCostEvaluator: OUTGOING F => D
+2017-11-09 16:37:20.544+0000 ERROR MtCostEvaluator: OUTGOING A => D
+2017-11-09 16:37:20.544+0000 ERROR MtCostEvaluator: OUTGOING D => E
+2017-11-09 16:37:20.544+0000 ERROR MtCostEvaluator: OUTGOING E => B
+2017-11-09 16:37:20.544+0000 ERROR MtPathExpander: expand. INCOMING. Node: F
+2017-11-09 16:37:20.544+0000 ERROR MtCostEvaluator: OUTGOING E => F
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING E => F
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING A => D
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING E => B
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING A => C
+2017-11-09 16:37:20.545+0000 ERROR MtCostEvaluator: OUTGOING C => F
+2017-11-09 16:37:20.546+0000 ERROR MtCostEvaluator: OUTGOING F => E
+2017-11-09 16:37:20.546+0000 ERROR MtCostEvaluator: OUTGOING E => B
+2017-11-09 16:37:20.546+0000 ERROR MtPathExpander: expand. OUTGOING. Node: E
+2017-11-09 16:37:20.546+0000 ERROR MtCostEvaluator: OUTGOING E => B
+2017-11-09 16:37:20.546+0000 ERROR MtCostEvaluator: OUTGOING E => B
+2017-11-09 16:37:20.546+0000 ERROR MtCostEvaluator: OUTGOING E => F
+2017-11-09 16:37:20.546+0000 ERROR MtCostEvaluator: OUTGOING E => F
+2017-11-09 16:37:20.546+0000 ERROR MtPathExpander: expand. INCOMING. Node: F
+2017-11-09 16:37:20.547+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.547+0000 ERROR MtCostEvaluator: OUTGOING D => F
+2017-11-09 16:37:20.547+0000 ERROR MtCostEvaluator: OUTGOING C => F
+2017-11-09 16:37:20.547+0000 ERROR MtCostEvaluator: OUTGOING C => F
+2017-11-09 16:37:20.547+0000 ERROR MtPathExpander: expand. OUTGOING. Node: B
+2017-11-09 16:37:20.548+0000 ERROR MtCostEvaluator: OUTGOING B => E
+2017-11-09 16:37:20.548+0000 ERROR MtCostEvaluator: OUTGOING B => E
+2017-11-09 16:37:20.548+0000 ERROR MtCostEvaluator: OUTGOING B => H
+2017-11-09 16:37:20.548+0000 ERROR MtCostEvaluator: OUTGOING B => H
+2017-11-09 16:37:20.548+0000 ERROR MtPathExpander: expand. INCOMING. Node: D
+2017-11-09 16:37:20.548+0000 ERROR MtCostEvaluator: OUTGOING F => D
+2017-11-09 16:37:20.549+0000 ERROR MtCostEvaluator: OUTGOING F => D
+2017-11-09 16:37:20.549+0000 ERROR MtCostEvaluator: OUTGOING A => D
+2017-11-09 16:37:20.549+0000 ERROR MtCostEvaluator: OUTGOING A => D
+2017-11-09 16:37:20.549+0000 ERROR MtPathExpander: expand. OUTGOING. Node: H
+2017-11-09 16:37:20.549+0000 ERROR MtCostEvaluator: OUTGOING H => B
+2017-11-09 16:37:20.550+0000 ERROR MtCostEvaluator: OUTGOING H => B
 ```
