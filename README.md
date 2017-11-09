@@ -9,11 +9,10 @@ This is a simple example of a Neo4j procedure demonstrating how the `DijkstraBid
 4. Create the demo graph (see below).
 5. Run the demo query (see below).
 
-# Evaluate the result
-- The demo query returns only one path while I expect more paths to be found with an increasing cost.
-- Check the log output (neo4j.log)
-  - The cost evaluator is run twice for every relationship while I expect it to be run only once per relationship.
-  - The direction passed into the cost evaluator is always OUTGOING. I expect it to be INCOMING when the path expander is in reverse mode.
+# Issues
+1. The demo query returns only one path while I expect more paths to be found with an increasing cost. *This is my main issue*.
+2. The direction passed into the cost evaluator is always OUTGOING. I expect it to be INCOMING when the path expander is in reverse mode. See neo4j.log.
+3. The cost evaluator is run twice for every relationship while I expect it to be run only once per relationship. See neo4j.log.
 
 # Demo graph
 ![Demo Graph](/graph.png)
